@@ -1,11 +1,9 @@
 const express = require('express');
-const cors = require('cors');
 const path = require('path');
 const app = express();
 const router = require('./routes/web.js')(app);
 const mongoose = require('./database/connectivity')
 app.use(express.json());
-app.use(cors());
 
 // const api = require('./api');
 const { notFound, errorHandler } = require('./middlewares/errors.middleware');

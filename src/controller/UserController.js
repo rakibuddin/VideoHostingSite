@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
-const e = require('express');
+const express = require('express');
+const app = express();
+app.use(express.json());
 const UserModel = require('../model/User')
 
 exports.showRegistrationForm = function (req, res){
@@ -9,12 +11,12 @@ exports.showRegistrationForm = function (req, res){
 exports.submitRegistration = async function (req, res){
     try{
         const salt = await bcrypt.genSalt(5);
-        const hashedPass = await bcrypt.hash(req.query.password, salt);
+        const hashedPass = await bcrypt.hash(req.body.password, salt);
         new UserModel({
-            name: req.query.name,
-            email: req.query.email,
+            name: req.body.name,
+            email: req.body.email,
             password: hashedPass,
-            role: "Admin"
+            role: req.body.role
           })
         .save()
         .then(doc => {

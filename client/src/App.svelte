@@ -1,5 +1,5 @@
 <script>
-  let text = "";
+  import Router, { link } from "svelte-spa-router";
+  import { routes } from "./route";
 </script>
-
-<h1> Hello there from the <s>other side</s> svelte app</h1>
+<Router {routes}/>

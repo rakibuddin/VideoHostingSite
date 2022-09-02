@@ -2,7 +2,16 @@ const { authUser, authRole } = require('../middlewares/auth')
 const UserController = require('../controller/UserController')
 
 
+
 module.exports = function(app){
+  const bodyParser = require('body-parser');
+  const cors = require('cors')
+  app.use(bodyParser.json());
+  app.use(cors({
+    origin: '*'
+  }));
+
+
   //Home
   app.get("/", function(req, res){
     res.send("home e asi");
