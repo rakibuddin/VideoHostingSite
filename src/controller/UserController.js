@@ -4,10 +4,6 @@ const app = express();
 app.use(express.json());
 const UserModel = require('../model/User')
 
-exports.showRegistrationForm = function (req, res){
-    console.log('Registration Page dekhate hobe');
-};
-
 exports.submitRegistration = async function (req, res){
     try{
         const salt = await bcrypt.genSalt(5);
