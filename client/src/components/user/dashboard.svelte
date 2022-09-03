@@ -1,13 +1,8 @@
 <script>
-<<<<<<< HEAD
     import {push, pop} from 'svelte-spa-router';
     import Navbar from "../home/components/navbar.svelte";
     // import Navbar from "../home/components/navbar-dashboard.svelte";
     import { store } from '../session/auth';
-=======
-    import {push, pop} from 'svelte-spa-router'
-    import { store } from '../../session/auth';
->>>>>>> 5b82a4fa0b123d38ee30b76fad22f1db51a31be5
 
     // if($store == null || $store.role !== "User"){
     //     pop();
@@ -19,15 +14,31 @@
     }
 
     async function onSubmit(e){
-        e.preventDefault();
-        const formData = new FormData(e.target)
-        const res = await fetch('http://localhost:5678/uploadVideo', {
-			method: "POST",
+        // debugger;
+
+        const formData = new FormData(e.target);
+
+        try{
+            let response = await fetch('http://localhost:5678/uploadVideo', {
+            method: 'POST',
             body: formData
-        })
-		
-		const result = await res.json()
+            });
+
+            const data = await response.json();
+            console.log(data);
+        }catch(err){
+            console.log(err);
+        }
+
+        // if(data['success']){
+        //     // fetchSingleData.featchSingleUserData(email);
+        //     // hasCOntent.set(true);
+        //     // isUpload.set(false);
+        // }else{
+        //     alert("This video is already uploaded by another user!!");
+        // }
     }
+
 
     
 
@@ -81,18 +92,18 @@
 
 <button on:click="{logout}" style="display: inline-block; float: right">Logout</button>
 
-<form on:submit={onSubmit} action="">
+<form on:submit|preventDefault={onSubmit}>
 
     <label for="title">Enter Video Title</label>
-    <input id="title" type="text" name="title">
+    <input id="title" type="text" name="title" required>
 
     <label for="description">Enter Video Description</label>
-    <textarea name="description" id="description" cols="30" rows="10"></textarea>
+    <textarea name="description" id="description" cols="30" rows="10" required></textarea>
     
     <label for="myfile">Choose your video</label>
-    <input type="file" id="myFile" name="filename"> 
+    <input type="file" id="myFile" name="filename" required> 
 
-    <input id="title" type="text" value="{$store._id}" name="user_id" hidden>
+    <input id="title" type="text" value="1" name="user_id">
 
     <button type="submit">Upload</button>
 

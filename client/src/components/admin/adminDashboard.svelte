@@ -1,6 +1,6 @@
 <script>
     import {push, pop} from 'svelte-spa-router'
-    import { store } from '../../session/auth';
+    import { store } from '../session/auth';
 
 	// if($store == null || $store.role !== "Admin"){
     //     pop();

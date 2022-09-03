@@ -1,7 +1,7 @@
 <script>
     import {push} from 'svelte-spa-router'
     import Navbar from "./components/navbar.svelte";
-    import { store } from '../../session/auth';
+    import { store } from '../session/auth';
 
     function onSubmit(e){
         const formData = new FormData(e.target);
