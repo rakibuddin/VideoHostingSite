@@ -1,6 +1,6 @@
 <script>
     import {push} from 'svelte-spa-router'
-    import Navbar from "./navbar.svelte";
+    import Navbar from "./components/navbar.svelte";
 
     function onSubmit(e){
         const formData = new FormData(e.target);

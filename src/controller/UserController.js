@@ -29,7 +29,6 @@ exports.submitRegistration = async function (req, res){
         })
         .catch(err => {
             console.error(err);
-            res.send("Bolbo je error hoise");
         })
     }catch(err){
         console.log(err)
@@ -37,7 +36,7 @@ exports.submitRegistration = async function (req, res){
 };
 
 exports.authenticate = function (req, res){
-    UserModel.find({email: req.query.email}, async function(err, docs){
+    UserModel.find({email: req.body.email}, async function(err, docs){
         if(err){
             console.log(err);
         }else if(docs == null){
@@ -45,12 +44,12 @@ exports.authenticate = function (req, res){
         }else{
             docs = docs[0];
             try{
-                if(await bcrypt.compare(req.query.password, docs.password)){
+                if(await bcrypt.compare(req.body.password, docs.password)){
                     res.setHeader('Content-Type', 'application/json');
-                    res.status(400).end(JSON.stringify(
+                    res.status(200).end(JSON.stringify(
                         { 
                             status: "success",
-                            user_id: docs._id,
+                            role: docs.role,
                             email: docs.email,
                             name: docs.name,
                         }));
@@ -63,6 +62,7 @@ exports.authenticate = function (req, res){
                         }));
                 }
             }catch(err){
+                console.log(err);
                 res.setHeader('Content-Type', 'application/json');
                 res.status(400).end(JSON.stringify(
                     { 
