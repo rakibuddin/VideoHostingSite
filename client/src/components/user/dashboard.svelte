@@ -1,10 +1,10 @@
 <script>
     import {push, pop} from 'svelte-spa-router';
+    import { get } from 'svelte/store';
     import Navbar from "../home/components/navbar.svelte";
-    // import Navbar from "../home/components/navbar-dashboard.svelte";
     import { store } from '../session/auth';
 
-    // if($store == null || $store.role !== "User"){
+    // if(store == null || store.role !== "User"){
     //     pop();
     // }
 
@@ -15,6 +15,8 @@
 
     async function onSubmit(e){
         // debugger;
+        let local = get(store)
+        console.log('The current value is: ', get(store));
 
         const formData = new FormData(e.target);
 
@@ -29,6 +31,8 @@
         }catch(err){
             console.log(err);
         }
+
+        document.getElementById("form").reset()
 
         // if(data['success']){
         //     // fetchSingleData.featchSingleUserData(email);
@@ -57,7 +61,6 @@
       width: 100%;
       padding: 12px 20px;
       margin: 10px 0;
-      display: inline-block;
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
@@ -92,7 +95,7 @@
 
 <button on:click="{logout}" style="display: inline-block; float: right">Logout</button>
 
-<form on:submit|preventDefault={onSubmit}>
+<form on:submit|preventDefault={onSubmit} id="form">
 
     <label for="title">Enter Video Title</label>
     <input id="title" type="text" name="title" required>
@@ -103,7 +106,7 @@
     <label for="myfile">Choose your video</label>
     <input type="file" id="myFile" name="filename" required> 
 
-    <input id="title" type="text" value="1" name="user_id">
+    <input id="title" type="text" value="{store.email}" name="mail" hidden>
 
     <button type="submit">Upload</button>
 

@@ -48,6 +48,7 @@ exports.authenticate = function (req, res){
                             role: docs.role,
                             email: docs.email,
                             name: docs.name,
+                            user_id: docs._id
                         }));
                 }else{
                     res.setHeader('Content-Type', 'application/json');

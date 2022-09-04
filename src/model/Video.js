@@ -6,7 +6,7 @@ let videosSchema = new mongoose.Schema({
     title: String,
     description: String,
     path: String,
-    user_id: Number,
+    email: String,
 })
 
 module.exports = mongoose.model('Videos', videosSchema)

@@ -1,9 +1,10 @@
 const { authUser, authRole } = require('../middlewares/auth')
 const UserController = require('../controller/UserController')
+const VideoController = require('../controller/VideoController')
 const Video = require('../model/Video')
 
 
-//file upload related
+//multer config
 const multer  = require('multer')
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -14,9 +15,6 @@ const fileStorageEngine = multer.diskStorage({
   } 
 })
 const upload = multer({ storage: fileStorageEngine })
-
-var formidable = require('formidable'); 
-var fs = require('fs');
 
 
 
@@ -48,20 +46,12 @@ module.exports = function(app){
 
 
   //Video Related Routes
+  app.get("/getAllVideo", function (req, res) {
+    VideoController.getAllVideo(req, res);
+  });
+
   app.post("/uploadVideo", upload.single("filename"), function (req, res) {
-    new Video({
-      title: req.body.title,
-      description: req.body.description,
-      path: req.file.path,
-      user_id: req.user_id,
-    }).save().then(doc => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).end(JSON.stringify(
-          { 
-              status: "success",
-              message: "Video upload completed"
-          }));
-    })
+    VideoController.uploadVideo(req, res);
   });
 
   app.patch("/updateVideo", function(req, res){

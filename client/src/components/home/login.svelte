@@ -2,6 +2,7 @@
     import {push} from 'svelte-spa-router'
     import Navbar from "./components/navbar.svelte";
     import { store } from '../session/auth';
+    import { get } from 'svelte/store';
 
     function onSubmit(e){
         const formData = new FormData(e.target);
@@ -27,7 +28,7 @@
         if(result.status !== "success"){
             document.getElementById('errorlog').innerText = result.message;
         }else{
-            $store = result;
+            store.set(result);
             if($store.role === "Admin"){
                 push('/admin/dashboard')
             }else{

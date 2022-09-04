@@ -1,13 +1,17 @@
 <script>
     import Navbar from "./components/navbar.svelte";
+    
+    let videos = [];
 
-    let videos = [
-		{ title: 'title1', path: '/videos/video1.mp4' },
-        { title: 'title2', path: '/videos/video2.mp4' },
-        { title: 'title3', path: '/videos/video3.mp4' },
-        { title: 'title3', path: '/videos/video4.mp4' },
-        { title: 'title3', path: '/videos/video5.mp4' }, 
-	];
+    fetch('http://localhost:5678/getAllVideo')
+    .then((response) => response.json())
+    .then((data) => {
+        // console.log(data)
+        // console.log(videos)
+        videos = data;
+    });
+
+    
 </script>
 
 <style>

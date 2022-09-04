@@ -17,10 +17,10 @@
 			method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-				name: data.name,
-				email: data.email,
-                password: data.password,
-                role: data.role,
+              name: data.name,
+              email: data.email,
+              password: data.password,
+              role: data.role,
 			})
 		})
 		
@@ -81,9 +81,9 @@ button:hover {
 
     <label for="">Role:</label>
     <label for="user">User</label>
-    <input type="radio" id="user" name="age" value="User">
+    <input type="radio" id="user" name="role" value="User">
     <label for="admin">Admin</label>
-    <input type="radio" id="admin" name="age" value="Admin"><br>
+    <input type="radio" id="admin" name="role" value="Admin"><br>
     
 
     <button type="submit">Complete Registration</button>
